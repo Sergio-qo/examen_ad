@@ -76,16 +76,13 @@ ENGINE = InnoDB;
 -- Table `mydb`.`Cuenta`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`Cuenta` (
-  `nombre` VARCHAR(45) NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL PRIMARY key,
   `num_tarjeta` VARCHAR(45) NOT NULL,
-  `email_usuario` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`nombre`),
-  INDEX `email_usuario_idx` (`email_usuario` ASC),
-  CONSTRAINT `email_usuario`
-    FOREIGN KEY (`email_usuario`)
+  `em_us` VARCHAR(45) NOT NULL,
+  CONSTRAINT `em_us`
+    FOREIGN KEY (`em_us`)
     REFERENCES `mydb`.`Usuario` (`email`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+	 )
 ENGINE = InnoDB;
 
 
