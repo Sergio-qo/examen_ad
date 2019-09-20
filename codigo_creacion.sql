@@ -1,4 +1,6 @@
-USE `acteuno` ;
+create database mydb character set UTF8;
+
+USE `mydb` ;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Partido`
