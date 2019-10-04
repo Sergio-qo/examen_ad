@@ -26,6 +26,7 @@ namespace PlaceMyBet.Models
             {
                 apuestas.Add(new Apuesta(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetInt32(3), reader.GetInt32(4), reader.GetString(5)));
             }
+            con.Close();
             return apuestas;
         }
     }

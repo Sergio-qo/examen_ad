@@ -26,6 +26,7 @@ namespace PlaceMyBet.Models
             {
                 mercados.Add(new Mercado(reader.GetInt32(0), reader.GetDouble(1), reader.GetDouble(2), reader.GetDouble(3), reader.GetDouble(4), reader.GetString(5), reader.GetInt32(6)));
             }
+            con.Close();
             return mercados;
         }
     }

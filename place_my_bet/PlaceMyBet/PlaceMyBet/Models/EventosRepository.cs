@@ -26,6 +26,7 @@ namespace PlaceMyBet.Models
             {
                 eventos.Add(new Evento(reader.GetInt32(0), reader.GetString(1), reader.GetString(2)));
             }
+            con.Close();
             return eventos;
         }
     }
