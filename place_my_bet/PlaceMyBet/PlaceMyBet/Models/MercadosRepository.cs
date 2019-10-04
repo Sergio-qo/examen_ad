@@ -19,15 +19,23 @@ namespace PlaceMyBet.Models
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
             command.CommandText = "select * from mercado";
-            con.Open();
-            MySqlDataReader reader = command.ExecuteReader();
-            List<Mercado> mercados = new List<Mercado>();
-            while (reader.Read())
+            try
             {
-                mercados.Add(new Mercado(reader.GetInt32(0), reader.GetDouble(1), reader.GetDouble(2), reader.GetDouble(3), reader.GetDouble(4), reader.GetString(5), reader.GetInt32(6)));
+                con.Open();
+                MySqlDataReader reader = command.ExecuteReader();
+                List<Mercado> mercados = new List<Mercado>();
+                while (reader.Read())
+                {
+                    mercados.Add(new Mercado(reader.GetInt32(0), reader.GetDouble(1), reader.GetDouble(2), reader.GetDouble(3), reader.GetDouble(4), reader.GetString(5), reader.GetInt32(6)));
+                }
+                con.Close();
+                return mercados;
             }
-            con.Close();
-            return mercados;
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Se ha producido un error: " + ex);
+                return null;
+            }
         }
     }
 }
