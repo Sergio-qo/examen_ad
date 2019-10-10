@@ -26,4 +26,20 @@ namespace PlaceMyBet.Models
         public string Tipo { get; set;}
         public int IdPartdio { get; set;}
     }
+
+    public class MercadoDTO
+    {
+        public MercadoDTO(double cuotaUnder, double cuotaOver, string tipo, int idPartido)
+        {
+            CuotaOver = cuotaOver;
+            CuotaUnder = cuotaUnder;
+            Tipo = tipo;
+            IdPartdio = idPartido;
+        }
+
+        public double CuotaUnder { get; set; }
+        public double CuotaOver { get; set; }
+        public string Tipo { get; set; }
+        public int IdPartdio { get; set; }
+    }
 }

@@ -37,5 +37,29 @@ namespace PlaceMyBet.Models
                 return null;
             }
         }
+
+        internal List<MercadoDTO> RetrieveDTO()
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "select * from mercado";
+            try
+            {
+                con.Open();
+                MySqlDataReader reader = command.ExecuteReader();
+                List<MercadoDTO> mercados = new List<MercadoDTO>();
+                while (reader.Read())
+                {
+                    mercados.Add(new MercadoDTO(reader.GetDouble(3), reader.GetDouble(4), reader.GetString(5), reader.GetInt32(6)));
+                }
+                con.Close();
+                return mercados;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Se ha producido un error: " + ex);
+                return null;
+            }
+        }
     }
 }

@@ -17,4 +17,15 @@ namespace PlaceMyBet.Models
         public string EquipoL { get; set; }
         public string EquipoV { get; set; }
     }
+
+    public class EventoDTO
+    {
+        public EventoDTO(string equipov, string equipol)
+        {
+            EquipoL = equipol;
+            EquipoV = equipov;
+        }
+        public string EquipoL { get; set; }
+        public string EquipoV { get; set; }
+    }
 }
