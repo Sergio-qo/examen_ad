@@ -25,8 +25,8 @@ namespace PlaceMyBet.Controllers
         }
 
         // POST: api/Eventos
-        public void Post([FromBody]string value)
-        {
+        public void Post(Evento e)
+        { 
         }
 
         // PUT: api/Eventos/5

@@ -61,5 +61,71 @@ namespace PlaceMyBet.Models
                 return null;
             }
         }
+
+        internal void Save(Apuesta a)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "insert into apuesta values(" + a.Id + "," + "'" + a.Tipo + "'" + "," + a.Cuota + "," + a.DineroApostado+","+a.IdMercado+"," + "'" + a.EmailUsuario + "'" + ");";
+            try
+            {
+                con.Open();
+                command.ExecuteNonQuery();
+                
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error " + e);
+            }
+            con.Close();
+            if (a.Tipo.ToUpper() == "OVER")
+            {
+                command.CommandText = "UPDATE mercado SET dinero_apostado_over = dinero_apostado_over + " + a.DineroApostado + " WHERE id=" + a.IdMercado+";";
+            }
+            if (a.Tipo.ToUpper() == "UNDER")
+            {
+                command.CommandText = "UPDATE mercado SET dinero_apostado_under = dinero_apostado_under + " + a.DineroApostado + " WHERE id=" + a.IdMercado + ";";
+            }
+            try
+            {
+                con.Open();
+                command.ExecuteNonQuery();
+                
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error " + e);
+            }
+            con.Close();
+            con.Open();
+            command.CommandText = "select dinero_apostado_over from mercado where id="+ a.IdMercado+"; ";
+            MySqlDataReader reader = command.ExecuteReader();
+            reader.Read();
+            double dino = reader.GetDouble(0);
+            reader.Close();
+            con.Close();
+
+            con.Open();
+            command.CommandText = "select dinero_apostado_under from mercado where id=" + a.IdMercado + "; ";
+            reader = command.ExecuteReader();
+            reader.Read();
+            double dinu = reader.GetDouble(0);
+            reader.Close();
+            con.Close();
+            double po = dino / (dino + dinu);
+            double pu = dinu / (dinu + dino);
+            command.CommandText = "update mercado set cuota_under = "+ (1/po)*0.95+" where id = " + a.IdMercado + "; update mercado set cuota_over ="+(1/pu)*0.95+" where id = "+ a.IdMercado +"; ";
+            try
+            {
+                con.Open();
+                command.ExecuteNonQuery();
+                
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error " + e);
+            }
+            con.Close();
+        }
     }
 }
