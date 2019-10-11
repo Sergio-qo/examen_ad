@@ -114,12 +114,29 @@ namespace PlaceMyBet.Models
             con.Close();
             double po = dino / (dino + dinu);
             double pu = dinu / (dinu + dino);
-            command.CommandText = "update mercado set cuota_under = "+ (1/po)*0.95+" where id = " + a.IdMercado + "; update mercado set cuota_over ="+(1/pu)*0.95+" where id = "+ a.IdMercado +"; ";
+
+            decimal co = (1 / po) * 0,95;
+            decimal cu = (1 / pu) * 0.95;
+
+            command.CommandText = "update mercado set cuota_over =" + co + " where id =" + a.IdMercado + ";";
             try
             {
                 con.Open();
                 command.ExecuteNonQuery();
                 
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine("Error " + e);
+            }
+            con.Close();
+
+            command.CommandText = "update mercado set cuota_under ="+cu+" where id ="+ a.IdMercado +"; ";
+            try
+            {
+                con.Open();
+                command.ExecuteNonQuery();
+
             }
             catch (MySqlException e)
             {
