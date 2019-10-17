@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Globalization;
 
 namespace PlaceMyBet.Models
 {
@@ -64,6 +65,18 @@ namespace PlaceMyBet.Models
 
         internal void Save(Apuesta a)
         {
+            CultureInfo cullInfo = new System.Globalization.CultureInfo("es-ES");
+
+            cullInfo.NumberFormat.NumberDecimalSeparator = ".";
+
+            cullInfo.NumberFormat.CurrencyDecimalSeparator = ".";
+
+            cullInfo.NumberFormat.PercentDecimalSeparator = ".";
+
+            cullInfo.NumberFormat.CurrencyDecimalSeparator = ".";
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = cullInfo;
+
             MySqlConnection con = Connect();
             MySqlCommand command = con.CreateCommand();
             command.CommandText = "insert into apuesta values(" + a.Id + "," + "'" + a.Tipo + "'" + "," + a.Cuota + "," + a.DineroApostado+","+a.IdMercado+"," + "'" + a.EmailUsuario + "'" + ");";
@@ -115,10 +128,10 @@ namespace PlaceMyBet.Models
             double po = dino / (dino + dinu);
             double pu = dinu / (dinu + dino);
 
-            decimal co = (1 / po) * 0,95;
-            decimal cu = (1 / pu) * 0.95;
+            double co = Convert.ToDouble((1 / po) * 0.95);
+            double cu = Convert.ToDouble((1 / pu) * 0.95);
 
-            command.CommandText = "update mercado set cuota_over =" + co + " where id =" + a.IdMercado + ";";
+            command.CommandText = "update mercado set cuota_over = '" + co + "' where id =" + a.IdMercado + ";";
             try
             {
                 con.Open();
@@ -131,7 +144,7 @@ namespace PlaceMyBet.Models
             }
             con.Close();
 
-            command.CommandText = "update mercado set cuota_under ="+cu+" where id ="+ a.IdMercado +"; ";
+            command.CommandText = "update mercado set cuota_under = '"+cu+"' where id ="+ a.IdMercado +"; ";
             try
             {
                 con.Open();
