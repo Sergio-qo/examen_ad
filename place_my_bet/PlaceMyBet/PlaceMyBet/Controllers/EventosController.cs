@@ -19,9 +19,9 @@ namespace PlaceMyBet.Controllers
         }
 
         // GET: api/Eventos/5
-        public string Get(int id)
+        public List<Evento> Get(int id)
         {
-            return "value";
+            return null;
         }
 
         // POST: api/Eventos

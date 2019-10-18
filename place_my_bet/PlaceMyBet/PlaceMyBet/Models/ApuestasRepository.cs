@@ -157,5 +157,29 @@ namespace PlaceMyBet.Models
             }
             con.Close();
         }
+
+        internal List<ApuestaDTOEVME> RetrieveDTOEVME(string email)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "SELECT m.tipo, a.tipo, a.cuota, a.dinero_apostado, m.id_partido, a.id, m.id FROM apuesta a, mercado m WHERE a.id_mercado = m.id AND a.email_usuario = "+"'"+ email + "'"+";";
+            try
+            {
+                con.Open();
+                MySqlDataReader reader = command.ExecuteReader();
+                List<ApuestaDTOEVME> apuestas = new List<ApuestaDTOEVME>();
+                while (reader.Read())
+                {
+                    apuestas.Add(new ApuestaDTOEVME(reader.GetString(0), reader.GetInt32(4), reader.GetInt32(5), reader.GetString(1), reader.GetDouble(2), reader.GetDouble(3), reader.GetInt32(6), email));
+                }
+                con.Close();
+                return apuestas;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Se ha producido un error: " + ex);
+                return null;
+            }
+        }
     }
 }

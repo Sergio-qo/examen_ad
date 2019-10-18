@@ -42,4 +42,22 @@ namespace PlaceMyBet.Models
         public string Tipo { get; set; }
         public int IdPartdio { get; set; }
     }
+
+    public class MercadoDTOAP
+    {
+        public MercadoDTOAP(string email, string tipo_m, string tipo_a, double cuota, double din_ap)
+        {
+            Email = email;
+            Tipo_M = tipo_m;
+            Tipo_A = tipo_a;
+            Cuota = cuota;
+            Din_Ap = din_ap;
+        }
+
+        public string Email { get; set; }
+        public string Tipo_M { get; set; }
+        public string Tipo_A { get; set; }
+        public double Cuota { get; set; }
+        public double Din_Ap { get; set; }
+    }
 }

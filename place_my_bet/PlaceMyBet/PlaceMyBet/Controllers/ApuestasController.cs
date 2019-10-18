@@ -19,9 +19,11 @@ namespace PlaceMyBet.Controllers
         }
 
         // GET: api/Apuestas/5
-        public string Get(int id)
+        public List<ApuestaDTOEVME> Get(string email)
         {
-            return "value";
+            var repo = new ApuestasRepository();
+            List<ApuestaDTOEVME> apuestas = repo.RetrieveDTOEVME(email);
+            return apuestas;
         }
 
         // POST: api/Apuestas

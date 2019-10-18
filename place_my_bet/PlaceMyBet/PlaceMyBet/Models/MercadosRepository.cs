@@ -61,5 +61,51 @@ namespace PlaceMyBet.Models
                 return null;
             }
         }
+
+        internal List<Mercado> RetrieveByEventoId(int id_evento)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "SELECT * FROM mercado WHERE id_partido = " + id_evento +";";
+            try
+            {
+                con.Open();
+                MySqlDataReader reader = command.ExecuteReader();
+                List<Mercado> mercados = new List<Mercado>();
+                while (reader.Read())
+                {
+                    mercados.Add(new Mercado(reader.GetInt32(0), reader.GetDouble(1), reader.GetDouble(2), reader.GetDouble(3), reader.GetDouble(4), reader.GetString(5), reader.GetInt32(6)));
+                }
+                return mercados;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
+
+        internal List<MercadoDTOAP> RetrieveAP(int id_mercado)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "SELECT a.email_usuario, m.tipo, a.tipo, a.dinero_apostado, a.cuota FROM mercado m, apuesta a WHERE a.id_mercado = m.id and m.id = " + id_mercado+";";
+            try
+            {
+                con.Open();
+                MySqlDataReader reader = command.ExecuteReader();
+                List<MercadoDTOAP> mercados = new List<MercadoDTOAP>();
+                while (reader.Read())
+                {
+                    mercados.Add(new MercadoDTOAP(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetDouble(4), reader.GetDouble(3)));
+                }
+                return mercados;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
     }
 }
