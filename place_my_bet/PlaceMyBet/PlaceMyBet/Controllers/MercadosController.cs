@@ -26,6 +26,7 @@ namespace PlaceMyBet.Controllers
             return mercados;
         }
 
+        [Authorize (Roles = "Admin")]
         public List<MercadoDTOAP> GetDTOAP  (int id_mercado)
         {
             var repo = new MercadosRepository();
