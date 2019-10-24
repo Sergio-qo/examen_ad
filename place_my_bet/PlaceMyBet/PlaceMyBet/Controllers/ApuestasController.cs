@@ -27,6 +27,7 @@ namespace PlaceMyBet.Controllers
         }
 
         // POST: api/Apuestas
+        //[Authorize]
         public void Post(Apuesta a)
         {
             var repo = new ApuestasRepository();
