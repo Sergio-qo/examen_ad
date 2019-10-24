@@ -26,7 +26,7 @@ namespace PlaceMyBet.Controllers
             return mercados;
         }
 
-        public List<MercadoDTOAP> Get(int id_mercado)
+        public List<MercadoDTOAP> GetDTOAP  (int id_mercado)
         {
             var repo = new MercadosRepository();
             List<MercadoDTOAP> mercados = repo.RetrieveAP(id_mercado);
