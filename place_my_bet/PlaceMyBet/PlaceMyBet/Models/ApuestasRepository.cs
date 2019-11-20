@@ -15,6 +15,34 @@ namespace PlaceMyBet.Models
             MySqlConnection con = new MySqlConnection(connString);
             return con;
         }
+
+
+        /*** EJERCICIO 1 ***/
+        internal List<ApuestaDTOEX> RetrieveDTOEX()
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "select u.nombre, a.dinero_apostado, a.id_mercado, a.cuota from apuesta a, usuario u WHERE a.email_usuario = u.email";
+
+            try
+            {
+                con.Open();
+                MySqlDataReader reader = command.ExecuteReader();
+                List<ApuestaDTOEX> apuestas = new List<ApuestaDTOEX>();
+                while (reader.Read())
+                {
+                    apuestas.Add(new ApuestaDTOEX(reader.GetString(0), reader.GetDouble(1), reader.GetInt32(2), reader.GetDouble(3)));
+                }
+                con.Close();
+                return apuestas;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Se ha producido un error: " + ex);
+                return null;
+            }
+        }
+
         internal List<Apuesta> Retrieve()
         {
             MySqlConnection con = Connect();

@@ -18,6 +18,16 @@ namespace PlaceMyBet.Controllers
             return apuestas;
         }
 
+
+        /*** EJERCICIO 1 ***/
+        [Route("api/ApuestasExamen")]
+        public List<ApuestaDTOEX> GetEX()
+        {
+            var repo = new ApuestasRepository();
+            List<ApuestaDTOEX> apuestas = repo.RetrieveDTOEX();
+            return apuestas;
+        }
+
         // GET: api/Apuestas/5
         public List<ApuestaDTOEVME> Get(string email)
         {

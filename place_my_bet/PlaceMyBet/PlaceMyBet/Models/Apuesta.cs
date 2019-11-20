@@ -26,6 +26,22 @@ namespace PlaceMyBet.Models
        
     }
 
+    /*** EJERCICIO 1 ***/
+    public class ApuestaDTOEX
+    {
+        public ApuestaDTOEX(string nombre, double cantidad, int id_mercado, double cuota_apuesta)
+        {
+            Nombre_usuario = nombre;
+            Cantidad = cantidad;
+            Mercado = id_mercado;
+            Cuota_apuesta = cuota_apuesta;
+        }
+        public string Nombre_usuario { get; set; }
+        public double Cantidad { get; set; }
+        public int Mercado { get; set; }
+        public double Cuota_apuesta{ get; set; }
+    }
+
     public class ApuestaDTO
     {
         public ApuestaDTO(string tipo, double cuota, double dineroApostado, int idMercado, string emailUsuario)
