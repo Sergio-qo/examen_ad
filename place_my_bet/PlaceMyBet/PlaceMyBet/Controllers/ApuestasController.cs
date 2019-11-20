@@ -28,6 +28,20 @@ namespace PlaceMyBet.Controllers
             return apuestas;
         }
 
+
+
+
+        /*** EJERCICIO 2 ***/
+        [Route("api/GetByCu")]
+        public List<Apuesta> GetBYCU(double cuota_1, double cuota_2)
+        {
+            var repo = new ApuestasRepository();
+            List<Apuesta> apuestas = repo.RetrieveBYCU(cuota_1, cuota_2);
+            return apuestas;
+        }
+
+
+
         // GET: api/Apuestas/5
         public List<ApuestaDTOEVME> Get(string email)
         {

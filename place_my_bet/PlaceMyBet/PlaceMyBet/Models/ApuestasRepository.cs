@@ -43,6 +43,37 @@ namespace PlaceMyBet.Models
             }
         }
 
+
+
+
+        /**** EJERCICIO 2 ***/
+        internal List<Apuesta> RetrieveBYCU(double cuota_1, double cuota_2)
+        {
+            MySqlConnection con = Connect();
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "SELECT * from apuesta WHERE cuota BETWEEN " + "'" + cuota_1 + "'" + " AND " + "'" + cuota_2 + "'" + ";";
+
+            try
+            {
+                con.Open();
+                MySqlDataReader reader = command.ExecuteReader();
+                List<Apuesta> apuestas = new List<Apuesta>();
+                while (reader.Read())
+                {
+                    apuestas.Add(new Apuesta(reader.GetInt32(0), reader.GetString(1), reader.GetDouble(2), reader.GetDouble(3), reader.GetInt32(4), reader.GetString(5)));
+                }
+                con.Close();
+                return apuestas;
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("Se ha producido un error: " + ex);
+                return null;
+            }
+        }
+
+
+
         internal List<Apuesta> Retrieve()
         {
             MySqlConnection con = Connect();
