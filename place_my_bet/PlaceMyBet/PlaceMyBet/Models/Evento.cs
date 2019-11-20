@@ -28,4 +28,22 @@ namespace PlaceMyBet.Models
         public string EquipoL { get; set; }
         public string EquipoV { get; set; }
     }
+
+
+
+    /*** EJERCICIO 3 ***/
+    public class EventoDTODIN
+    {
+        public EventoDTODIN(int id, string visitante, string local, double dinero)
+        {
+            EquipoL = local;
+            EquipoV = visitante;
+            Id = id;
+            Dinero = dinero;
+        }
+        public string EquipoL { get; set; }
+        public string EquipoV { get; set; }
+        public int Id { get; set; }
+        public double Dinero { get; set; }
+    }
 }
